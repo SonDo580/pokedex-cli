@@ -7,17 +7,16 @@ import (
 )
 
 func main() {
-	stop := false
 	scanner := bufio.NewScanner(os.Stdin)
 
-	for ; !stop ; {
+	for {
 		fmt.Printf("Pokedex > ")
 
 		scanner.Scan()
 		input := scanner.Text()
 
 		if input == "exit" {
-			stop = true
+			break
 		}
 	}
 }
