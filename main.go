@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -19,4 +20,10 @@ func main() {
 			break
 		}
 	}
+}
+
+func cleanInput(str string) []string {
+	lowered := strings.ToLower(str)
+	words := strings.Fields(lowered)
+	return words
 }
