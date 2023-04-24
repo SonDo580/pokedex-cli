@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type cliCommand struct {
 	name        string
 	description string
@@ -22,7 +24,13 @@ func getAvailableCommands() map[string]cliCommand {
 }
 
 func callbackHelp() {
+	availableCommands := getAvailableCommands()
 	
+	for _, command := range(availableCommands) {
+		fmt.Printf(" - %s: %s\n", command.name, command.description)
+	}
+
+	fmt.Println("----------")
 }
 
 func callBackExit() {
