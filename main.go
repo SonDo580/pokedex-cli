@@ -26,9 +26,9 @@ func main() {
 		switch command {
 		case "exit":
 			os.Exit(0)
+		default:
+			fmt.Println("Invalid command")
 		}
-
-		fmt.Println("Echoing: ", cleaned)
 	}
 }
 
