@@ -21,6 +21,13 @@ func main() {
 			continue
 		}
 
+		command := cleaned[0]
+
+		switch command {
+		case "exit":
+			os.Exit(0)
+		}
+
 		fmt.Println("Echoing: ", cleaned)
 	}
 }
