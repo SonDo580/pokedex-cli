@@ -15,10 +15,13 @@ func main() {
 
 		scanner.Scan()
 		input := scanner.Text()
+		cleaned := cleanInput(input)
 
-		if input == "exit" {
-			break
+		if len(cleaned) == 0 {
+			continue
 		}
+
+		fmt.Println("Echoing: ", cleaned)
 	}
 }
 
