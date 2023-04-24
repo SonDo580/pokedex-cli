@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 type cliCommand struct {
 	name        string
@@ -36,5 +39,6 @@ func callbackHelp() error {
 }
 
 func callBackExit() error {
+	os.Exit(0)
 	return nil
 }
