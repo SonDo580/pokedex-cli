@@ -8,7 +8,7 @@ import (
 
 type cliCommand struct {
 	description string
-	callback    func() error
+	callback    func()
 }
 
 func getAvailableCommands() map[string]cliCommand {
@@ -32,7 +32,7 @@ func getAvailableCommands() map[string]cliCommand {
 	}
 }
 
-func callbackHelp() error {
+func callbackHelp() {
 	availableCommands := getAvailableCommands()
 	
 	for commandName, command := range availableCommands {
@@ -40,16 +40,13 @@ func callbackHelp() error {
 	}
 
 	fmt.Println("----------")
-
-	return nil
 }
 
-func callBackExit() error {
+func callBackExit() {
 	os.Exit(0)
-	return nil
 }
 
-func callBackMap() error {
+func callBackMap() {
 	pokeAPIClient := NewClient()
 
 	data, err :=  pokeAPIClient.getLocationsData()
@@ -58,8 +55,6 @@ func callBackMap() error {
 	}
 
 	printLocations(data)
-
-	return nil
 }
 
 func printLocations(data locationsResponse) {
@@ -70,6 +65,5 @@ func printLocations(data locationsResponse) {
 	fmt.Println("----------")
 }
 
-func callbackMapBack() error {
-	return nil
+func callbackMapBack() {
 }
