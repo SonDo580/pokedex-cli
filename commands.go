@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -20,6 +21,14 @@ func getAvailableCommands() map[string]cliCommand {
 			description: "Exit the Pokedex",
 			callback:    callBackExit,
 		},
+		"map": {
+			description: "Displays the next 20 locations",
+			callback: callBackMap,
+		},
+		"mapb": {
+			description: "Displays the previous 20 locations",
+			callback: callbackMapBack,
+		},
 	}
 }
 
@@ -37,5 +46,30 @@ func callbackHelp() error {
 
 func callBackExit() error {
 	os.Exit(0)
+	return nil
+}
+
+func callBackMap() error {
+	pokeAPIClient := NewClient()
+
+	data, err :=  pokeAPIClient.getLocationsData()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	printLocations(data)
+
+	return nil
+}
+
+func printLocations(data locationsResponse) {
+	fmt.Println("Locations:")
+	for _, location := range data.Results {
+		fmt.Printf(" - %s\n", location.Name)
+	}
+	fmt.Println("----------")
+}
+
+func callbackMapBack() error {
 	return nil
 }
