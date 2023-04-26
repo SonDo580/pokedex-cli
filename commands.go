@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/SonDo580/pokedex-cli/pokeapi"
@@ -25,18 +24,18 @@ func getAvailableCommands() map[string]cliCommand {
 		},
 		"map": {
 			description: "Displays the next 20 locations",
-			callback: callBackMap,
+			callback:    callBackMap,
 		},
 		"mapb": {
 			description: "Displays the previous 20 locations",
-			callback: callbackMapBack,
+			callback:    callbackMapBack,
 		},
 	}
 }
 
 func callbackHelp(appConfig *config) {
 	availableCommands := getAvailableCommands()
-	
+
 	for commandName, command := range availableCommands {
 		fmt.Printf(" - %s: %s\n", commandName, command.description)
 	}
@@ -49,9 +48,10 @@ func callBackExit(appConfig *config) {
 }
 
 func callBackMap(appConfig *config) {
-	data, err :=  appConfig.pokeapiClient.GetLocationsData(appConfig.nextLocationURL)
+	data, err := appConfig.pokeapiClient.GetLocationsData(appConfig.nextLocationURL)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		return
 	}
 
 	printLocations(data)
@@ -65,9 +65,10 @@ func callbackMapBack(appConfig *config) {
 		return
 	}
 
-	data, err :=  appConfig.pokeapiClient.GetLocationsData(appConfig.prevLocationURL)
+	data, err := appConfig.pokeapiClient.GetLocationsData(appConfig.prevLocationURL)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		return
 	}
 
 	printLocations(data)
