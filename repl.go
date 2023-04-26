@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func startRepl() {
+func startRepl(appConfig *config) {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	availableCommands := getAvailableCommands()
@@ -31,7 +31,7 @@ func startRepl() {
 			continue
 		}
 
-		command.callback()
+		command.callback(appConfig)
 	}
 }
  
