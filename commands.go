@@ -60,6 +60,19 @@ func callBackMap(appConfig *config) {
 }
 
 func callbackMapBack(appConfig *config) {
+	if appConfig.prevLocationURL == nil {
+		fmt.Println("You're on the first page")
+		return
+	}
+
+	data, err :=  appConfig.pokeapiClient.GetLocationsData(appConfig.prevLocationURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	printLocations(data)
+	appConfig.nextLocationURL = data.Next
+	appConfig.prevLocationURL = data.Previous
 }
 
 func printLocations(data pokeapi.LocationsResponse) {
