@@ -1,4 +1,4 @@
-package main
+package pokeapi
 
 import (
 	"encoding/json"
@@ -7,35 +7,35 @@ import (
 	"net/http"
 )
 
-func (c *Client) getLocationsData() (locationsResponse, error) {
+func (c *Client) GetLocationsData() (LocationsResponse, error) {
 	endpoint := "/location"
 	fullURL := baseURL + endpoint
 
 	req, err := http.NewRequest("GET", fullURL, nil)
 	if err != nil {
-		return locationsResponse{}, err
+		return LocationsResponse{}, err
 	}
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
-		return locationsResponse{}, err
+		return LocationsResponse{}, err
 	}
 
 	defer resp.Body.Close()
 
 	if resp.StatusCode > 399 {
-		return locationsResponse{}, fmt.Errorf("%v: %s", resp.StatusCode, resp.Status)
+		return LocationsResponse{}, fmt.Errorf("%v: %s", resp.StatusCode, resp.Status)
 	}
 
 	data, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return locationsResponse{}, err
+		return LocationsResponse{}, err
 	}
 
-	locationsData := locationsResponse{}
+	locationsData := LocationsResponse{}
 	err = json.Unmarshal(data, &locationsData)
 	if err != nil {
-		return locationsResponse{}, err
+		return LocationsResponse{}, err
 	}
 
 	return locationsData, nil

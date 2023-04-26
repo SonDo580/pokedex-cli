@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/SonDo580/pokedex-cli/internal/pokeapi"
 )
 
 type cliCommand struct {
@@ -47,9 +49,9 @@ func callBackExit() {
 }
 
 func callBackMap() {
-	pokeAPIClient := NewClient()
+	pokeAPIClient := pokeapi.NewClient()
 
-	data, err :=  pokeAPIClient.getLocationsData()
+	data, err :=  pokeAPIClient.GetLocationsData()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -57,7 +59,7 @@ func callBackMap() {
 	printLocations(data)
 }
 
-func printLocations(data locationsResponse) {
+func printLocations(data pokeapi.LocationsResponse) {
 	fmt.Println("Locations:")
 	for _, location := range data.Results {
 		fmt.Printf(" - %s\n", location.Name)
