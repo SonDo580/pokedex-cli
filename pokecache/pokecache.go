@@ -16,3 +16,10 @@ func NewCache() Cache {
 		cache: make(map[string]cacheEntry),
 	}
 }
+
+func (c *Cache) Add(key string, val []byte) {
+	c.cache[key] = cacheEntry{
+		val:       val,
+		createdAt: time.Now().UTC(),
+	}
+}
