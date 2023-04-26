@@ -49,14 +49,14 @@ func callBackExit(appConfig *config) {
 }
 
 func callBackMap(appConfig *config) {
-	pokeAPIClient := pokeapi.NewClient()
-
-	data, err :=  pokeAPIClient.GetLocationsData()
+	data, err :=  appConfig.pokeapiClient.GetLocationsData()
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	printLocations(data)
+	appConfig.nextLocationURL = data.Next
+	appConfig.prevLocationURL = data.Previous
 }
 
 func callbackMapBack(appConfig *config) {
