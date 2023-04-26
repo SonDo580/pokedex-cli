@@ -49,7 +49,7 @@ func callBackExit(appConfig *config) {
 }
 
 func callBackMap(appConfig *config) {
-	data, err :=  appConfig.pokeapiClient.GetLocationsData()
+	data, err :=  appConfig.pokeapiClient.GetLocationsData(appConfig.nextLocationURL)
 	if err != nil {
 		log.Fatal(err)
 	}
