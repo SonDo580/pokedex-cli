@@ -15,6 +15,18 @@ func (c *Client) GetLocationsData(pageURL *string) (LocationsResponse, error) {
 		fullURL = *pageURL
 	}
 
+	// Check cache
+	cachedData, ok := c.cache.Get(fullURL)
+	if ok {
+		locationsData := LocationsResponse{}
+		err := json.Unmarshal(cachedData, &locationsData)
+		if err != nil {
+			return LocationsResponse{}, err
+		}
+
+		return locationsData, nil
+	}
+
 	req, err := http.NewRequest("GET", fullURL, nil)
 	if err != nil {
 		return LocationsResponse{}, err
