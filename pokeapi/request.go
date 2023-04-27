@@ -54,5 +54,8 @@ func (c *Client) GetLocationsData(pageURL *string) (LocationsResponse, error) {
 		return LocationsResponse{}, err
 	}
 
+	// Cache success data
+	c.cache.Add(fullURL, data)
+
 	return locationsData, nil
 }
